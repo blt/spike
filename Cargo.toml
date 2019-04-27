@@ -1,0 +1,40 @@
+[package]
+name = "spike"
+version = "0.1.0"
+authors = ["Brian L. Troutwine <brian@troutwine.us>"]
+edition = "2018"
+build = "build.rs"
+
+[[bin]]
+name = "spike-server"
+path = "src/server.rs"
+
+[[bin]]
+name = "spike-client"
+path = "src/client.rs"
+
+[dependencies]
+bytes = "0.4"
+env_logger = { version = "0.5", default-features = false }
+futures = "0.1"
+log = "0.4"
+num_cpus = "1.0"
+prost = "0.5"
+tokio = "0.1"
+tokio-rustls = "0.9"
+uuid = "0.7"
+
+[dependencies.tower-h2]
+git = "https://github.com/tower-rs/tower-h2"
+rev = "a3c958a243ef3d837933b31bf186ba0e6b0e60c9"
+
+[dependencies.tower-grpc]
+git = "https://github.com/tower-rs/tower-grpc"
+rev = "597f56ce0eb47267a17cebe4b0120a713c12a3c0"
+default-features = false
+features = ["protobuf"]
+
+[build-dependencies]
+[build-dependencies.tower-grpc-build]
+git = "https://github.com/tower-rs/tower-grpc"
+rev = "597f56ce0eb47267a17cebe4b0120a713c12a3c0"

@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package spike;
+
+service Spike {
+        rpc Send(SendRequest) returns (SendResponse);
+        rpc Watch(WatchRequest) returns (stream WatchResponse);
+}
+
+message SendRequest {
+        string room = 1;
+        string msg = 2;
+}
+
+message SendResponse {
+}
+
+message WatchRequest {
+        string room = 1;
+}
+
+message WatchResponse {
+        string msg = 1;
+}
