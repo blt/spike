@@ -712,15 +712,23 @@ dependencies = [
  "bytes 0.4.12 (registry+https://github.com/rust-lang/crates.io-index)",
  "env_logger 0.5.13 (registry+https://github.com/rust-lang/crates.io-index)",
  "futures 0.1.26 (registry+https://github.com/rust-lang/crates.io-index)",
+ "h2 0.1.18 (registry+https://github.com/rust-lang/crates.io-index)",
+ "http 0.1.17 (registry+https://github.com/rust-lang/crates.io-index)",
  "log 0.4.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "num_cpus 1.10.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "prost 0.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "rustls 0.15.2 (registry+https://github.com/rust-lang/crates.io-index)",
  "tokio 0.1.19 (registry+https://github.com/rust-lang/crates.io-index)",
  "tokio-rustls 0.9.2 (registry+https://github.com/rust-lang/crates.io-index)",
  "tower-grpc 0.1.0 (git+https://github.com/tower-rs/tower-grpc?rev=597f56ce0eb47267a17cebe4b0120a713c12a3c0)",
  "tower-grpc-build 0.1.0 (git+https://github.com/tower-rs/tower-grpc?rev=597f56ce0eb47267a17cebe4b0120a713c12a3c0)",
  "tower-h2 0.1.0 (git+https://github.com/tower-rs/tower-h2?rev=a3c958a243ef3d837933b31bf186ba0e6b0e60c9)",
+ "tower-request-modifier 0.1.0 (git+https://github.com/tower-rs/tower-http?rev=e7ef6ef623411342ee89c0a83ef924db6206143a)",
+ "tower-service 0.2.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "tower-util 0.1.0 (git+https://github.com/tower-rs/tower?rev=716bafd9222e491e9e4e9b394aa9dbb13825b6f5)",
  "uuid 0.7.4 (registry+https://github.com/rust-lang/crates.io-index)",
+ "webpki 0.19.1 (registry+https://github.com/rust-lang/crates.io-index)",
+ "webpki-roots 0.16.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -1102,6 +1110,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "tower-layer"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+dependencies = [
+ "futures 0.1.26 (registry+https://github.com/rust-lang/crates.io-index)",
+ "tower-service 0.2.0 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
 name = "tower-limit"
 version = "0.1.0"
 source = "git+https://github.com/tower-rs/tower#a4c753bda6802bc82529623de1ea6f969642e44d"
@@ -1120,6 +1137,16 @@ source = "git+https://github.com/tower-rs/tower#a4c753bda6802bc82529623de1ea6f96
 dependencies = [
  "futures 0.1.26 (registry+https://github.com/rust-lang/crates.io-index)",
  "tower-layer 0.1.0 (git+https://github.com/tower-rs/tower)",
+ "tower-service 0.2.0 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
+name = "tower-request-modifier"
+version = "0.1.0"
+source = "git+https://github.com/tower-rs/tower-http?rev=e7ef6ef623411342ee89c0a83ef924db6206143a#e7ef6ef623411342ee89c0a83ef924db6206143a"
+dependencies = [
+ "futures 0.1.26 (registry+https://github.com/rust-lang/crates.io-index)",
+ "http 0.1.17 (registry+https://github.com/rust-lang/crates.io-index)",
  "tower-service 0.2.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
@@ -1165,6 +1192,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "tower-util"
+version = "0.1.0"
+source = "git+https://github.com/tower-rs/tower?rev=716bafd9222e491e9e4e9b394aa9dbb13825b6f5#716bafd9222e491e9e4e9b394aa9dbb13825b6f5"
+dependencies = [
+ "futures 0.1.26 (registry+https://github.com/rust-lang/crates.io-index)",
+ "tower-layer 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "tower-service 0.2.0 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
 name = "unicode-segmentation"
 version = "1.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1191,6 +1228,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "ring 0.14.6 (registry+https://github.com/rust-lang/crates.io-index)",
  "untrusted 0.6.2 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
+name = "webpki-roots"
+version = "0.16.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+dependencies = [
+ "untrusted 0.6.2 (registry+https://github.com/rust-lang/crates.io-index)",
+ "webpki 0.19.1 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -1377,17 +1423,21 @@ dependencies = [
 "checksum tower-http 0.1.0 (git+https://github.com/tower-rs/tower-http)" = "<none>"
 "checksum tower-http-util 0.1.0 (git+https://github.com/tower-rs/tower-http)" = "<none>"
 "checksum tower-layer 0.1.0 (git+https://github.com/tower-rs/tower)" = "<none>"
+"checksum tower-layer 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)" = "0ddf07e10c07dcc8f41da6de036dc66def1a85b70eb8a385159e3908bb258328"
 "checksum tower-limit 0.1.0 (git+https://github.com/tower-rs/tower)" = "<none>"
 "checksum tower-load-shed 0.1.0 (git+https://github.com/tower-rs/tower)" = "<none>"
+"checksum tower-request-modifier 0.1.0 (git+https://github.com/tower-rs/tower-http?rev=e7ef6ef623411342ee89c0a83ef924db6206143a)" = "<none>"
 "checksum tower-retry 0.1.0 (git+https://github.com/tower-rs/tower)" = "<none>"
 "checksum tower-service 0.2.0 (registry+https://github.com/rust-lang/crates.io-index)" = "2cc0c98637d23732f8de6dfd16494c9f1559c3b9e20b4a46462c8f9b9e827bfa"
 "checksum tower-timeout 0.1.0 (git+https://github.com/tower-rs/tower)" = "<none>"
 "checksum tower-util 0.1.0 (git+https://github.com/tower-rs/tower)" = "<none>"
+"checksum tower-util 0.1.0 (git+https://github.com/tower-rs/tower?rev=716bafd9222e491e9e4e9b394aa9dbb13825b6f5)" = "<none>"
 "checksum unicode-segmentation 1.2.1 (registry+https://github.com/rust-lang/crates.io-index)" = "aa6024fc12ddfd1c6dbc14a80fa2324d4568849869b779f6bd37e5e4c03344d1"
 "checksum unicode-xid 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)" = "fc72304796d0818e357ead4e000d19c9c174ab23dc11093ac919054d20a6a7fc"
 "checksum untrusted 0.6.2 (registry+https://github.com/rust-lang/crates.io-index)" = "55cd1f4b4e96b46aeb8d4855db4a7a9bd96eeeb5c6a1ab54593328761642ce2f"
 "checksum uuid 0.7.4 (registry+https://github.com/rust-lang/crates.io-index)" = "90dbc611eb48397705a6b0f6e917da23ae517e4d127123d2cf7674206627d32a"
 "checksum webpki 0.19.1 (registry+https://github.com/rust-lang/crates.io-index)" = "4f7e1cd7900a3a6b65a3e8780c51a3e6b59c0e2c55c6dc69578c288d69f7d082"
+"checksum webpki-roots 0.16.0 (registry+https://github.com/rust-lang/crates.io-index)" = "c10fa4212003ba19a564f25cd8ab572c6791f99a03cc219c13ed35ccab00de0e"
 "checksum which 2.0.1 (registry+https://github.com/rust-lang/crates.io-index)" = "b57acb10231b9493c8472b20cb57317d0679a49e0bdbee44b3b803a6473af164"
 "checksum winapi 0.2.8 (registry+https://github.com/rust-lang/crates.io-index)" = "167dc9d6949a9b857f3451275e911c3f44255842c1f7a76f33c55103a909087a"
 "checksum winapi 0.3.7 (registry+https://github.com/rust-lang/crates.io-index)" = "f10e386af2b13e47c89e7236a7a14a086791a2b88ebad6df9bf42040195cf770"

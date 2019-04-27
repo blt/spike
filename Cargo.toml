@@ -5,24 +5,30 @@ authors = ["Brian L. Troutwine <brian@troutwine.us>"]
 edition = "2018"
 build = "build.rs"
 
-[[bin]]
-name = "spike-server"
-path = "src/server.rs"
-
-[[bin]]
-name = "spike-client"
-path = "src/client.rs"
-
 [dependencies]
 bytes = "0.4"
 env_logger = { version = "0.5", default-features = false }
 futures = "0.1"
+http = "0.1"
 log = "0.4"
 num_cpus = "1.0"
 prost = "0.5"
 tokio = "0.1"
 tokio-rustls = "0.9"
+tower-service = "0.2"
 uuid = "0.7"
+webpki = "0.19"
+webpki-roots = "0.16"
+rustls = "0.15"
+h2 = "0.1"
+
+[dependencies.tower-util]
+git = "https://github.com/tower-rs/tower"
+rev = "716bafd9222e491e9e4e9b394aa9dbb13825b6f5"
+
+[dependencies.tower-request-modifier]
+git = "https://github.com/tower-rs/tower-http"
+rev = "e7ef6ef623411342ee89c0a83ef924db6206143a"
 
 [dependencies.tower-h2]
 git = "https://github.com/tower-rs/tower-h2"

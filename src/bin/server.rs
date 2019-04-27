@@ -1,24 +1,16 @@
-// extern crate bytes;
-extern crate env_logger;
-extern crate futures;
-extern crate num_cpus;
 #[macro_use]
 extern crate log;
-// extern crate prost;
-extern crate tokio;
-extern crate tower_grpc;
-extern crate tower_h2;
-// extern crate tokio_rustls;
-// extern crate uuid;
-extern crate spike;
 
 use futures::sync::mpsc;
 use futures::{future, Future, Sink, Stream};
-use spike::get_tls_config;
 use std::collections::HashMap;
 use std::sync::{Arc, Mutex};
 use tokio::executor::DefaultExecutor;
 use tokio::net::TcpListener;
+use tokio_rustls::{
+    rustls::{AllowAnyAuthenticatedClient, RootCertStore, ServerConfig},
+    TlsAcceptor,
+};
 use tower_grpc::{Code, Request, Response, Status};
 
 pub mod spike_proto {
@@ -107,7 +99,10 @@ pub fn main() {
         DefaultExecutor::current(),
     )));
 
-    let tls_config = get_tls_config();
+    let mut root_cert_store = RootCertStore::empty();
+    root_cert_store.add_server_trust_anchors(&webpki_roots::TLS_SERVER_ROOTS);
+    let config = ServerConfig::new(AllowAnyAuthenticatedClient::new(root_cert_store));
+    let tls_acceptor = TlsAcceptor::from(Arc::new(config));
 
     let addr = "0.0.0.0:10011".parse().unwrap();
     let bind = TcpListener::bind(&addr).expect("bind");
@@ -121,7 +116,7 @@ pub fn main() {
             }
             info!("New connection from addr={:?}", addr);
             let h2_inner = h2.clone();
-            let done = tls_config
+            let done = tls_acceptor
                 .accept(tls_sock)
                 .and_then(move |sock| {
                     let serve = h2_inner.lock().unwrap().serve(sock);
